@@ -1,0 +1,39 @@
+input, body {
+  direction: rtl;
+  font-family: nazanin;
+}
+.result {
+  direction: ltr;
+}
+.selected {
+  background-color: #333 !important;
+  color: #fff;
+}
+.button {
+  border-radius: 5px;
+  background-color: #999;
+  cursor: pointer;
+}
+.log, .resultButton {
+  background-color: #999;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+table {
+  margin-top: 10px;
+}
+.jobcontainer, .labelcontainer {
+  padding: 3px;
+  margin: 2px;
+  background-color: #aaa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.fa {
+  margin: 3px;
+}
+.jobbox, .labelbox {
+  padding-left: 4px;
+}

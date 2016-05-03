@@ -1,0 +1,36 @@
+<link rel="import" href="components/iron-doc-viewer/iron-doc-viewer.html">
+<link rel="import" href="components/iron-component-page/iron-component-page.html">
+<!-- <link rel="import" href="components/iron-doc-viewer/iron-doc-viewer.html"> -->
+<link rel="import" href="components/paper-input/paper-input.html">
+<link rel="import" href="components/paper-input/paper-input-container.html">
+<link rel="import" href="components/paper-input/paper-input-error.html">
+<link rel="import" href="components/paper-input/paper-input-char-counter.html">
+<link rel="import" href="components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="components/paper-input/paper-textarea.html">
+
+<div class="vertical-section card iron-doc-viewer">
+  <paper-input label="label"></paper-input>
+  
+</div>
+<section class="card style-scope-iron-doc-viewer iron-component-page">
+<header class="iron-doc-viewer style-scope">1234</header>
+<marked-element class="style-scope iron-doc-viewer">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum aut nesciunt, ad dolorem labore quaerat quisquam! Quia quo facere necessitatibus.</p>
+      <paper-textarea label="textarea label"></paper-textarea>
+<pre>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, unde!</pre>
+      <paper-input label="only type letters (auto-validate)" auto-validate pattern="[a-zA-Z]*" error-message="letters only!"></paper-input>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In ipsa illo, explicabo quae, assumenda praesentium!</p>
+</marked-element>  
+</section>
+
+
+
+
+      <paper-input label="at most 10 letters" char-counter auto-validate pattern="[a-zA-Z]*" maxlength="10" error-message="letters only!"></paper-input>
+
+<paper-input class="short" label="total" type="number">
+        <div prefix>$</div>
+      </paper-input>
+
+
+        <paper-icon-button suffix onclick="clearInput()"
