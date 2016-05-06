@@ -133,6 +133,7 @@ selector = function (selectionArray, resultFunction) {
   tempFunction = function() {
     levelSelector(selectionArray[i].table, importedConditionString, selectionArray[i].conditions, selectionArray[i].exportFields, function(results){
       if (selectionArray[i+1]) {
+        finalResults = [];
         for (var j in results) {
           finalResults.push(results[j][selectionArray[i].exportFields]);
         }
