@@ -6,20 +6,20 @@
    */
   configurater = function(routeProvider){
     routeProvider
-      .when('/set', {
+      .when('/home', {
         templateUrl: 'partials/main.html',
         controller: 'mainControl'
       })
-      .when('/tabularResult', {
-        templateUrl: 'partials/table.html',
+      .when('/login', {
+        templateUrl: 'partials/login.html',
         controller: 'tableControl'
       })
-      .when('/polymer', {
-        templateUrl: 'partials/polymerTest.html',
+      .when('/databaseuserinterface', {
+        templateUrl: 'partials/dbUI.html',
         controller: 'polymerTestControl'
       })
       .otherwise({
-        redirectTo: '/set'
+        redirectTo: '/home'
       });
   },
 
