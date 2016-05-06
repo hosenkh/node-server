@@ -14,7 +14,7 @@
         templateUrl: 'partials/login.html',
         controller: 'loginControl'
       })
-      .when('/databaseuserinterface', {
+      .when('/dbUI', {
         templateUrl: 'partials/dbUI.html',
         controller: 'dbUController'
       })
