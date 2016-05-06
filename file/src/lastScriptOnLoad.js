@@ -1,7 +1,7 @@
-document.addEventListener('WebComponentsReady', function () {
-  var scope = document.querySelector('template[is=dom-bind]');
-  scope.common = commonScope.common;
-});
+// document.addEventListener('WebComponentsReady', function () {
+//   var scope = document.querySelector('template[is=dom-bind]');
+//   scope.common = commonScope.common;
+// });
 window.onhashchange = function() {
   commonScope.common.show = false;
   setTimeout(function(){
