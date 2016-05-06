@@ -6,6 +6,8 @@
   handler = {
     "/": requestHandler.main,
     "/db": requestHandler.db,
+    "/restricted": requestHandler.restricted,
+    "/postpone": requestHandler.postpone
   },
 
   init = function () {

@@ -4,11 +4,12 @@ document.addEventListener('WebComponentsReady', function () {
 });
 window.onhashchange = function() {
   commonScope.common.show = false;
-  commonScope.common.getPermission(window.location.hash, function(permission) {
-    console.log(permission);
-    setTimeout(function(){
+  setTimeout(function(){
+    commonScope.common.getPermission(window.location.hash, function(permission) {
+      console.log(permission);
       commonScope.common.postpone();
       commonScope.common.show = true;
-    }, 200);
-  });
+    });
+  }, 200);
 };
+console.log(commonScope.common);

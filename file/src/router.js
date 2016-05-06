@@ -12,11 +12,11 @@
       })
       .when('/login', {
         templateUrl: 'partials/login.html',
-        controller: 'tableControl'
+        controller: 'loginControl'
       })
       .when('/databaseuserinterface', {
         templateUrl: 'partials/dbUI.html',
-        controller: 'polymerTestControl'
+        controller: 'dbUController'
       })
       .otherwise({
         redirectTo: '/home'
