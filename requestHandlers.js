@@ -92,9 +92,10 @@ save = function (response, address, queryOptions, method) {
 };
 login = function (response, address, queryOptions, method, cookies, postData) {
   postObject = JSON.parse(postData);
+  console.log(postObject);
   if (method == 'post' && address == '/login') {
     if (postObject.username == 'admin') {
-      if (postObject.password == 'JPDrom27-') {
+      if (postObject.password == 'c914a90605a59084d12575ff9016bb2a') {
         response.writeHead(200, {
           'set-cookie': 'user='+crypto.encrypt(postObject.username)+';httpOnly=true;expires='+new Date(new Date().getTime()+15000).toUTCString()
         });
@@ -123,7 +124,7 @@ login = function (response, address, queryOptions, method, cookies, postData) {
           table: 'users',
           conditions: {
             username: [postObject.username],
-            password: [postObject.password]
+            password: [crypto.encrypt(postObject.password)]
           },
           exportFields: ['ID']
         }

@@ -20,7 +20,7 @@
     $scope.common = commonScope.common;
     $scope.post = function (username, password) {
       var resource = $resource('/login',{}, {save: {method: 'POST'}});
-      results = resource.save({username: username, password: password});
+      results = resource.save({username: username, password: md5(password)});
       results.$promise.then(function(data){
         var log = '';
         for (var i in data) {
