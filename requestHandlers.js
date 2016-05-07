@@ -158,7 +158,7 @@ logout = function (response, address, queryOptions, method, cookies, postData) {
   response.writeHead(200, {
     'set-cookie': 'user='+crypto.encrypt('public')+';httpOnly=true'
   });
-  response.write('logout successful');
+  response.write('<script>window.location = "/";</script>');
   response.end();
 };
 
