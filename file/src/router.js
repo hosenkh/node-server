@@ -7,15 +7,15 @@
   configurater = function(routeProvider){
     routeProvider
       .when('/home', {
-        templateUrl: 'partials/main.html',
+        templateUrl: 'restricted/partials/main.html',
         controller: 'mainControl'
       })
       .when('/login', {
-        templateUrl: 'partials/login.html',
+        templateUrl: 'restricted/partials/login.html',
         controller: 'loginControl'
       })
       .when('/dbUI', {
-        templateUrl: 'partials/dbUI.html',
+        templateUrl: 'restricted/partials/dbUI.html',
         controller: 'dbUController'
       })
       .otherwise({
