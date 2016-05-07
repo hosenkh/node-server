@@ -49,6 +49,7 @@ main = function (response, address, cookies) {
 db = function (response, address, queryOptions, method, cookies, postData) {
   username = userDecryptor(cookies);
   queryObj = querystring.parse(queryOptions);
+  requestData = JSON.parse(postData);
   if (method == 'get') {
     databaseHandler.showLink(username, queryObj.menu, function(results) {
       response.write(results);
@@ -56,13 +57,13 @@ db = function (response, address, queryOptions, method, cookies, postData) {
     });
   }
   if (method == 'post') {
-    databaseHandler.dbRequest(username, queryObj.selectionArray, queryObj.command, queryObj.data, function(results) {
+    databaseHandler.dbRequest(username, requestData.selectionArray, requestData.command, requestData.data, function(results) {
       if (userDecryptor(cookies) != 'public') {
         response.writeHead(200, {
-          'set-cookie': 'user='+cookies.user+';httpOnly=true;expires='+new Date(new Date().getTime()+15000).toUTCString()
+          'set-cookie': 'user='+cookies.user+';httpOnly=true;expires='+new Date(new Date().getTime()+600000).toUTCString()
         });
       }
-      response.write(results);
+      response.write('a'+JSON.stringify(results));
       response.end();
     });
   }
@@ -96,7 +97,7 @@ login = function (response, address, queryOptions, method, cookies, postData) {
     if (postObject.username == 'admin') {
       if (postObject.password == 'c914a90605a59084d12575ff9016bb2a') {
         response.writeHead(200, {
-          'set-cookie': 'user='+crypto.encrypt(postObject.username)+';httpOnly=true;expires='+new Date(new Date().getTime()+15000).toUTCString()
+          'set-cookie': 'user='+crypto.encrypt(postObject.username)+';httpOnly=true;expires='+new Date(new Date().getTime()+600000).toUTCString()
         });
         response.write('login successful');
         response.end();

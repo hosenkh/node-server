@@ -14,7 +14,7 @@
         templateUrl: 'restricted/partials/login.html',
         controller: 'loginControl'
       })
-      .when('/dbUI', {
+      .when('/dbUI/:table', {
         templateUrl: 'restricted/partials/dbUI.html',
         controller: 'dbUController'
       })

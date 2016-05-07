@@ -282,11 +282,11 @@ showLinkPermission = function (username, content, resultFunction) {
   var
   selectionArray = [
     {
-      table: 'users',
+      table: "users",
       conditions: {
-        username: username
+        Username: [username]
       },
-      exportFields: ['ID']
+      exportFields: ["ID"]
     },
     {
       table: "user_permissions",
@@ -295,11 +295,16 @@ showLinkPermission = function (username, content, resultFunction) {
       exportFields: ["PermissionId"]
     },
     {
-      table: 'permissions',
-      importedCondition: ['PermissionNameId'],
+      table: "permission_permissionnames",
+      importedCondition: "PermissionNameId",
+      exportFields: ["PermissionId"]
+    },
+    {
+      table: "permissions",
+      importedCondition: "ID",
       conditions: {
-        command: ['show'],
-        content: [content]
+        Content: ['show'],
+        Command: [command]
       },
       exportFields: ["Information"]
     }

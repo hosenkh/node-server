@@ -9,7 +9,7 @@
     $scope.common.postpone = function () {
       $resource('/postpone').get();
     };
-    console.log(commonScope.common);
+    
   },
 
   /**
@@ -49,8 +49,33 @@
     };
   },
 
-  DBUController = function ($scope, $resource) {
-
+  DBUController = function ($scope, $resource, $routeParams) {
+    var db = $resource('/db', {},
+      {
+        select: {method: 'POST', isArray: false},
+        update: {method: 'POST'},
+        insert: {method: 'POST'},
+        delete: {method: 'POST'},
+        updateBulk: {method: 'POST'},
+        insertBulk: {method: 'POST'}
+      }
+    );
+    var firstView = db.select(
+      {
+        selectionArray: [{"table": $routeParams.table, "exportFields": ["*"]}],
+        command: "select"
+      }
+    ),
+    gotString = '';
+    firstView.$promise.then(function(data){
+      for (var i in data) {
+        if (typeof(data[i]) == 'string') {
+          gotString += data[i];
+        }
+      }
+      gotString = gotString.slice(1);
+      $scope.mainTable = JSON.parse(gotString);
+    });
   },
 
   /**
@@ -59,9 +84,9 @@
    */
   init = function(){
     ng
-      .module('main', ['ngResource'])
+      .module('main', ['ngResource', 'ngRoute'])
       .controller('mainControl', ['$scope', '$resource', mainController])
-      .controller('dbUController', ['$scope', '$resource', DBUController])
+      .controller('dbUController', ['$scope', '$resource', '$routeParams',DBUController])
       .controller('loginControl', ['$scope', '$resource', loginController]);
   }
   ;
