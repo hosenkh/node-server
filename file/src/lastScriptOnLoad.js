@@ -3,13 +3,18 @@
 //   scope.common = commonScope.common;
 // });
 window.onhashchange = function() {
-  commonScope.common.show = false;
-  setTimeout(function(){
-    commonScope.common.getPermission(window.location.hash, function(permission) {
-      console.log(permission);
-      commonScope.common.postpone();
-      commonScope.common.show = true;
-    });
+  setTimeout(function () {
+    link = document.getElementById('restrictedlink');
+    console.log(link);
+    if (window.location.hash != '#/login') {
+      if (link === null) {
+        commonScope.common.lastPagePermitted = window.location.hash;
+        commonScope.common.lastPage = window.location.hash;
+      } else {
+        commonScope.common.lastPage = window.location.hash;
+      }
+    }
+    console.log(commonScope.common);
   }, 200);
+  
 };
-console.log(commonScope.common);
