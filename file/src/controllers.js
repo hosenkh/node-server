@@ -10,36 +10,6 @@
       $resource('/postpone').get();
     };
     console.log(commonScope.common);
-    $scope.common.getPermission = function (hash, resultFunction) {
-      $resource('/restricted', {hash: hash}).get().$promise.then(function(data) {
-        var log = '';
-        for (var i in data) {
-          if (typeof (data[i]) == 'string') {
-            log += data[i];
-          }
-        }
-        switch (log) {
-          case 'public':
-            console.log('public');
-            commonScope.common.lastPage = '/'+hash;
-            window.location = '/#/login';
-          break;
-          case 'restricted':
-            console.log('restricted');
-            console.log(commonScope.common.lastPage);
-            window.location = commonScope.common.lastPagePermitted;
-          break;
-          case 'permitted':
-            console.log('permitted');
-            if (hash != '#/login') {commonScope.common.lastPagePermitted = commonScope.common.lastPage = '/'+hash;}
-          break;
-          case 'goHome':
-            window.location = '/';
-          break;
-        }
-        resultFunction(log);
-      });
-    };
   },
 
   /**
@@ -63,6 +33,7 @@
             console.log('login successful');
             console.log(commonScope.common.lastPage);
             window.location = commonScope.common.lastPage;
+            window.location.reload();
           break;
           case 'password incorrect':
             $scope.password = '';
@@ -78,6 +49,10 @@
     };
   },
 
+  DBUController = function ($scope, $resource) {
+
+  },
+
   /**
    * app initializer
    * @return {[type]} [description]
@@ -86,6 +61,7 @@
     ng
       .module('main', ['ngResource'])
       .controller('mainControl', ['$scope', '$resource', mainController])
+      .controller('dbUController', ['$scope', '$resource', DBUController])
       .controller('loginControl', ['$scope', '$resource', loginController]);
   }
   ;
