@@ -134,19 +134,23 @@ selector = function (selectionArray, resultFunction) {
     levelSelector(selectionArray[i].table, importedConditionString, selectionArray[i].conditions, selectionArray[i].exportFields, function(results){
       if (selectionArray[i+1]) {
         finalResults = [];
-        for (var j in results) {
-          finalResults.push(results[j][selectionArray[i].exportFields]);
-        }
-        if (finalResults.length == 1) {
-          conjunction = '=';
-          cp ='';
+        if (results.length) {
+          for (var j in results) {
+            finalResults.push(results[j][selectionArray[i].exportFields]);
+          }
+          if (finalResults.length == 1) {
+            conjunction = '=';
+            cp ='';
+          } else {
+            conjunction = 'IN (';
+            cp = ')';
+          }
+          importedConditionString = '`'+selectionArray[i+1].importedCondition+'` '+conjunction+finalResults.join()+cp;
+          i++;
+          tempFunction();
         } else {
-          conjunction = 'IN (';
-          cp = ')';
+          resultFunction([]);
         }
-        importedConditionString = '`'+selectionArray[i+1].importedCondition+'` '+conjunction+finalResults.join()+cp;
-        i++;
-        tempFunction();
       } else {
         resultFunction(results);
       }
