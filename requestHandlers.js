@@ -71,27 +71,19 @@ db = function (response, address, queryOptions, method, cookies, postData) {
 restricted = function (response, address, queryOptions, method, cookies, postData) {
   username = userDecryptor(cookies);
   queryObj = querystring.parse(queryOptions);
-  if (queryObj.hash == '/#/login' && username != 'public') {
-    response.writeHead(200);
-    response.end('goHome');
-  } else {
-    databaseHandler.dbCheckPermission(username, 'download', queryObj.hash, function (permission) {
-      if (permission) {
-        response.writeHead(200);
-        response.end('permitted');
-      } else {
-        if (username == 'public') {
-          response.writeHead(200);
-          response.end('public');
-        } else {
-          response.writeHead(200);
-          response.end('restricted');
-        }
-      }
-    });
-  }
-    
+  fileName = address.split('/');
+  fileName = fileName[fileName.length - 1];
+  databaseHandler.dbCheckPermission(username, 'download', fileName, function (permission) {
+    if (permission) {
+      fileLoader.load(response, '', address, cookies);
+    } else {
+      response.writeHead(200);
+      response.write("You don't have the permission to access this page with this account or you may have been logged out.\nYou can try to <a id= 'restrictedlink' href='#/login'>login</a>.");
+      response.end();
+    }
+  });
 };
+
 
 save = function (response, address, queryOptions, method) {
   if (method == 'post') {
