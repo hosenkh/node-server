@@ -170,7 +170,7 @@ insertor = function (table ,insertionObject) {
   values = __.values(insertionObject);
   connection.query(
     'INSERT INTO '+table+ '('+keys.join()+') VALUES ('+values.join()+')',
-    errorThrower(err)
+    function(err){errorThrower(err);}
   );
 };
 /**
@@ -198,7 +198,7 @@ updator = function (table, IDs, dataObj) {
   }
   connection.query(
     'UPDATE '+table+ 'SET '+updateString+ 'WHERE `ID`'+conjunction+'('+IDs.join()+')',
-    errorThrower(err)
+    function(err) {errorThrower(err);}
   );
 };
 
@@ -217,7 +217,7 @@ deletor = function (table, IDs) {
   }
   connection.query(
     'DELETE FROM '+table+'WHERE `ID`'+conjunction+IDs.join(),
-    errorThrower(err)
+    function(err) {errorThrower(err);}
   );
 };
 
@@ -231,10 +231,10 @@ insertBulk = function (table, dataObj) {
   for (var i in dataObj.data) {
     dataString += '('+ dataObj.data[i].join()+'),';
   }
-  dataString.slice(0,-1);
+  dataString = dataString.slice(0,-1);
   connection.query(
-    'INSERT INTO '+table+ ' ('+dataObj.columns.join()+') VALUES '+dataString,
-    errorThrower(err)
+    'INSERT INTO ' + table + ' ('+dataObj.columns.join() + ') VALUES ' + dataString,
+    function(err) {errorThrower(err);}
   );
 };
 
@@ -255,7 +255,7 @@ updateBulk = function (table, dataObj) {
     }
     connection.query(
       'UPDATE '+table+ 'SET '+dataString+ 'WHERE `ID`='+dataObj.IDs[i],
-      errorThrower(err)
+      function(err) {errorThrower(err);}
     );
   }
 };
@@ -263,18 +263,23 @@ updateBulk = function (table, dataObj) {
 permissionParser = function (username, selectionArray, command) {
   var
   permissionArray = [];
-  for (var i in selectionArray) {
-    permissionArray.push({username: username, command: "select", content: selectionArray[i].table});
-    for (var j in selectionArray[i].exportFields) {
-      var fieldArray = selectionArray[i].exportFields[j].split('.');
-      if (fieldArray.length == 2 && fieldArray[0] != selectionArray[i].table) {
-        permissionArray.push({username: username, command: "select", content: fieldArray[0]});
+  if (command == 'select' || command == 'delete' || command == 'update') {
+    for (var i in selectionArray) {
+      permissionArray.push({username: username, command: "select", content: selectionArray[i].table});
+      for (var j in selectionArray[i].exportFields) {
+        var fieldArray = selectionArray[i].exportFields[j].split('.');
+        if (fieldArray.length == 2 && fieldArray[0] != selectionArray[i].table) {
+          permissionArray.push({username: username, command: "select", content: fieldArray[0]});
+        }
       }
     }
+    if (command != "select") {
+      permissionArray.push({username: username, command: command, content: selectionArray[selectionArray.length-1].table});
+    }
+  } else {
+    permissionArray.push({username: username, command: command, content: selectionArray});
   }
-  if (command != "select") {
-    permissionArray.push({username: username, command: command, content: selectionArray[selectionArray.length-1].table});
-  }
+    
   return permissionArray;
 };
 
