@@ -1,14 +1,23 @@
-<div class="mrla w6 ws6 wm6 wl6">
+<div class="mrla table">
   <div class="row card">
-    <div class="w2 ws2 wm2 wl2 left tac item title">ID</div>
-    <div class="w2 ws2 wm2 wl2 left tac item title">UserID</div>
-    <div class="w2 ws2 wm2 wl2 left tac item title">KindID</div>
-    <div class="w4 ws4 wm4 wl4 left tac item title">info</div>
+    <div class="left tac item title"ng-repeat = "key in tableWidth">{{key}}</div>
   </div>
-  <div class="row card" ng-repeat="record in mainTable">
-    <div class="w2 ws2 wm2 wl2 left tac item data">{{record.ID}}</div>
-    <div class="w2 ws2 wm2 wl2 left tac item data">2</div>
-    <div class="w2 ws2 wm2 wl2 left tac item data">3</div>
-    <div class="w4 ws4 wm4 wl4 left tac item data">653546</div>
+  <div class="row card relative" ng-repeat="record in mainTable">
+    <i class="fa fa-minus-circle absolute delete pointer" ng-click="deleteRow"></i>
+    <i class="fa fa-pencil-square-o absolute edit pointer" ng-click="editRow"></i>
+    <div class="left tac item data" ng-repeat = "key in tableWidth">{{record[key]}}</div>
+  </div>
+  <div class="row card relative" ng-show="newRow" ng-repeat="ed in edittedArray">
+    <i class="fa fa-times absolute cancel pointer" ng-click="dropNewRow(ed)"></i>
+    <i class="fa fa-plus absolute add pointer" ng-click="addRow()" ng-show="edittedArray.length <2"></i>
+    <div class="left tac item data">{{ed.ID || 'new'}}</div>
+    <input type="text" class="item" ng-repeat="item in ed" ng-model="item.value">
+  </div>
+  <div class="row card">
+    <div class="mrla tac item new box pointer" ng-style="setWidth()" ng-click="newRowActive()" ng-hide="edittedArray.length >0 && newRow"><i class="tac fa fa-plus"></i></div>
+    <div class="mrla tac item new box pointer" ng-style="setWidth()" ng-click="moreNewRows()" ng-show="edittedArray.length >0 && newRow">more rows</div>
+  </div>
+  <div class="row card">
+    <div class="mrla item box tac pointer" ng-hide="edittedArray.length <2" ng-click="sendAll()">send all</div>
   </div>
 </div>

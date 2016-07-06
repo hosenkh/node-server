@@ -1,6 +1,6 @@
 input, body {
   /*direction: rtl;*/
-  font-family: nazanin;
+  /*font-family: nazanin;*/
 }
 .card {
   padding: 2px;
@@ -9,12 +9,53 @@ input, body {
   margin-right: 2px;
   margin-left: 2px;
   padding: 6px;
+  width: 80px;
 }
 .data {
-  box-shadow: 0 2px 4px #ccc;
+  box-shadow: 0 2px 4px #aaa;
+  overflow: hidden;
+}
+.data:hover {
+  display: table;
 }
 
 .title {
   margin-right: 2px;
   margin-left: 2px;
+}
+i {
+  margin-top: 6px;
+  margin-right: 4px;
+  text-align: center;
+}
+.new {
+  box-shadow: 0 2px 10px #aaa;
+}
+.new:active {
+  box-shadow: 0 2px 3px #888;
+}
+
+.delete,.cancel {
+  left: -50px;
+}
+.edit,.add {
+  left: -25px;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.delete:active {
+  font-size: 120%;
+}
+
+.edit:active {
+  font-size: 120%;
+}
+
+input {
+  box-sizing: content-box;
+  border: 1px dotted #444;
+  width: 78px !important;
 }
